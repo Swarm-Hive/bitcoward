@@ -1,40 +1,43 @@
+let p = [];
+function setup(){
+  createCanvas(1000,1000);
+  
 
-height = 1000;
-width = 1000;
-const flock = [];
-function setup() {
-  createCanvas(1000, 1000);
-  
-  x = width / 2;
-  y = height/2;
-  frameRate(30)
-  background(51);
-  
- 
 }
-function mouseClicked() {
-  x = mouseX;
-  y = mouseY;
-  
+function mousePressed() {
+  let lol = new part();
+  lol.x = mouseX;
+  lol.y = mouseY;
+  p.push(lol);
   // prevent default
-  lol = [mouseX,mouseY]
-  flock.push(lol)
-  return [mouseX, mouseY];
+  return false;
 }
-function draw() {
+
+function draw(){
+  background(0);
   
-  stroke(50);
-  fill(200);
-  
-  for (bots in flock){
-    console.log(flock[bots]);
-    x = flock[bots][0];
-    y = flock[bots][1];
-    ellipse(x, y, 24, 24);
-    x = x +random(-10,10);
-    y = y +random(-10,10);
+  for (let i=0; i<p.length;i++){
+    p[i].update();
+    p[i].show();
   }
-  
-  
- 
+}
+
+class part {
+  constructor(){
+    this.x = 300;
+    this.y = 380;
+    this.vx = random(-5,5);
+    this.vy = random(-5,5);
+    
   }
+  update(){
+    
+    this.x+=this.vx;
+    this.y+=this.vy;
+  }
+  show(){
+    stroke(255);
+    fill(255,10);
+    ellipse(this.x,this.y,16)
+  }
+}

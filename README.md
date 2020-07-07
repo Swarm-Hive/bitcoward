@@ -1,2 +1,3 @@
-# bitcoward
-A survivual simulation aims for creating unpreditable behaviours by combing the swarm robotics concept and blockchain technology
+# p5.js-templates
+
+p5.js templates for ID311 Software Prototyping.
