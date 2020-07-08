@@ -1,4 +1,7 @@
 p = [];
+let timer = 5;
+boundary_distance = 50;
+
 function setup() {
   createCanvas(1080, 960);
   v = new Vehicle(width / 2, height / 2);
@@ -44,6 +47,39 @@ class Vehicle {
 
     this.acceleration.add(force);
   }
+  
+
+  boundary(){
+    let external_force = null;
+
+    
+    if (this.position.x < boundary_distance){
+      external_force = createVector(this.maxspeed, this.velocity.y);
+    } 
+    
+    else if (this.position.x > width - boundary_distance){
+      external_force = createVector(-this.maxspeed, this.velocity.y);
+    }
+    
+
+    if (this.position.y < boundary_distance){
+      external_force = createVector(this.velocity.x, this.maxspeed);
+    }
+    
+    else if (this.position.y > height - boundary_distance){
+      external_force = createVector(this.velocity.x, -this.maxspeed);
+    }
+
+    
+    if (external_force !== null){
+      external_force.normalize();
+      external_force.mult(this.maxspeed);
+      external_force.sub(this.velocity);
+      external_force.limit(this.maxforce);
+      this.applyForce(external_force);
+    }
+  }
+
   display() {
     // Draw a triangle rotated in the direction of velocity
     let theta = this.velocity.heading() + PI / 2;
@@ -52,12 +88,15 @@ class Vehicle {
     strokeWeight(1);
     push();
     translate(this.position.x, this.position.y);
+    
     rotate(theta);
     beginShape();
     vertex(0, -this.r * 2);
     vertex(-this.r, this.r * 2);
     vertex(this.r, this.r * 2);
+    this.boundary();
     endShape(CLOSE);
     pop();
   }
+
 }
