@@ -15,6 +15,7 @@ function setup() {
   function draw() {
     background(51);
     for (let i=0; i<p.length;i++){
+      setInterval(p[i].randomize(),2000);
       p[i].update();
       p[i].display();
     }
@@ -30,8 +31,20 @@ class Vehicle {
     this.r = 6;
     this.maxspeed = 8;
     this.maxforce = 0.2;
+    
   }
+  randomize(){
+    let external_force = null;
+    let x = random(-4,4);
+    external_force = createVector(x,x);
+    external_force.normalize();
+    external_force.mult(x);
+    external_force.sub(this.velocity);
+    external_force.limit(this.maxforce);
+    this.applyForce(external_force);
 
+
+  }
  
   update() {
 
@@ -41,6 +54,8 @@ class Vehicle {
     this.position.add(this.velocity);
 
     this.acceleration.mult(0);
+    
+    
   }
 
   applyForce(force) {
@@ -55,19 +70,23 @@ class Vehicle {
     
     if (this.position.x < boundary_distance){
       external_force = createVector(this.maxspeed, this.velocity.y);
+      console.log(this.velocity.x);
     } 
     
     else if (this.position.x > width - boundary_distance){
       external_force = createVector(-this.maxspeed, this.velocity.y);
+      console.log(this.velocity.x);
     }
     
 
     if (this.position.y < boundary_distance){
       external_force = createVector(this.velocity.x, this.maxspeed);
+      console.log(this.velocity.x);
     }
     
     else if (this.position.y > height - boundary_distance){
       external_force = createVector(this.velocity.x, -this.maxspeed);
+      console.log(this.velocity.x);
     }
 
     
@@ -79,6 +98,7 @@ class Vehicle {
       this.applyForce(external_force);
     }
   }
+  
 
   display() {
     // Draw a triangle rotated in the direction of velocity
