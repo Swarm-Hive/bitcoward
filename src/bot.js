@@ -1,4 +1,13 @@
-class Vehicle {
+/*
+ * @Author: Zitian(Daniel) Tong, Krishna Prasad
+ * @Date: 2020-07-09 22:30:47
+ * @LastEditTime: 2020-07-09 22:48:25
+ * @LastEditors: Zitian(Daniel) Tong
+ * @Description: bot class
+ * @FilePath: /bitcoward/src/bot.js
+ */ 
+
+class bot {
     constructor(x, y) {
       this.acceleration = createVector(0, 0);
       this.velocity = createVector(0, -2);
