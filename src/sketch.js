@@ -17,14 +17,20 @@ function setup() {
   }
 
   var pts = [];
-function mousePressed()
-{ if (mouseButton === CENTER){
-    if (pts.length == 4) {
-        pts = [];
-    }
-    pts.push([mouseX, mouseY])
+
+
+function keyTyped(){
+  if  (key === 'x'){
+    {
+      if (pts.length == 4) {
+          pts = [];
+      }
+      pts.push([mouseX, mouseY])
+  }
+    
+  }	  
 }
-}
+
 
 
   function draw() {
